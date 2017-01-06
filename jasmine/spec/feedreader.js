@@ -31,7 +31,7 @@ $(function() {
          * and that the URL is not empty.
          */
         function testURLdefined(obj) {
-            it('URL defined', function() {
+            it('Feed ' + obj + ' URL defined', function() {
                 expect(allFeeds[obj].url).toBeDefined();
                 expect(allFeeds[obj].url.length).not.toBe(0);
             });
@@ -42,7 +42,7 @@ $(function() {
          * and that the name is not empty.
          */
         function testNameDefined(obj) {
-            it('name defined', function() {
+            it('Feed ' + obj + ' name defined', function() {
                 expect(allFeeds[obj].name).toBeDefined();
                 expect(allFeeds[obj].name.length).not.toBe(0);
             });
@@ -58,24 +58,29 @@ $(function() {
 
     /* TODO: Write a new test suite named "The menu" */
     describe('The menu', function() {
+        var body = $(document.body);
+        var icon = $('.menu-icon-link')
 
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-        it('menuHidden', function() {
-            expect(something).toBeDefined();
+        it('menu starts hidden', function() {
+            expect(body.hasClass("menu-hidden")).toBe(true);
         });
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
-        it('menuChanges', function() {
-            expect(something).toBeDefined();
-            expect(something).toBeDefined();
+        /* TODO: Write a test that ensures the menu changes
+         * visibility when the menu icon is clicked. This test
+         * should have two expectations: does the menu display when
+         * clicked and does it hide when clicked again.
+         */
+        it ('visibility changes on click', function() {
+            var classes = body.attr('class');
+            icon.click();
+            var newClasses = body.attr('class');
+            expect(classes).not.toEqual(newClasses);
+            icon.click();
         });
 
     });
