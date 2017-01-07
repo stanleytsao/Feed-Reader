@@ -13,6 +13,9 @@ $(function() {
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
     */
+
+    var feed = $('.feed');
+
     describe('RSS Feeds', function() {
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
@@ -66,7 +69,7 @@ $(function() {
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-        it('menu starts hidden', function() {
+        it('hidden by default', function() {
             expect(body.hasClass("menu-hidden")).toBe(true);
         });
 
@@ -94,6 +97,17 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+
+        beforeEach(function(done) {
+            loadFeed(0,done);         
+        });
+
+        it ('at least 1 entry', function(done) {
+            var entries = feed["0"].children.length;
+            expect(entries).toBeGreaterThan(0);
+            done();
+        });
+
     });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
@@ -103,6 +117,25 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-    });
+
+        var oldContent, newContent;
+
+        beforeEach(function(done) {
+            feed.empty();
+            loadFeed(1, function() {
+                oldContent = feed.find("h2").text();
+                done();
+            });
+        });
+        
+        it ('changes the content', function(done) {
+            loadFeed(0, function() {
+                newContent = feed.find("h2").text();
+                done();
+            });
+            expect(newContent).not.toEqual(oldContent);
+        });    
+
+    });  
 
 }());
