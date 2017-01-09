@@ -4,23 +4,20 @@ $(function() {
         
         // Tests to make sure that the allFeeds variable has been defined and that it is not empty.
         it('are defined', function() {
-            expect(allFeeds).toBeDefined();
-            expect(allFeeds.length).not.toBe(0);
+            expect(allFeeds).toBeTruthy();
         });
 
         // Tests each feed in the allFeeds object and ensures it has a URL defined and that the URL is not empty.
         function testURLdefined(obj) {
             it('Feed ' + obj + ' URL defined', function() {
-                expect(allFeeds[obj].url).toBeDefined();
-                expect(allFeeds[obj].url.length).not.toBe(0);
+                expect(allFeeds[obj].url).toBeTruthy();
             });
         }
         
         // Tests each feed in the allFeeds object and ensures it has a name defined and that the name is not empty.
         function testNameDefined(obj) {
             it('Feed ' + obj + ' name defined', function() {
-                expect(allFeeds[obj].name).toBeDefined();
-                expect(allFeeds[obj].name.length).not.toBe(0);
+                expect(allFeeds[obj].name).toBeTruthy();
             });
         }
 
@@ -59,10 +56,9 @@ $(function() {
         });
         
         // Tests that when the loadFeed function is called and completes its work, there is at least a single entry element within the feed container
-        it ('at least 1 entry', function(done) {
-            var entries = $('.feed .entry-link');
-            expect(entries.length).toBeGreaterThan(0);
-            done();
+        it ('at least 1 entry', function() {
+            var $entries = $('.feed .entry');
+            expect($entries.length).toBeGreaterThan(0);
         });
 
     });
